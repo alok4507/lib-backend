@@ -175,3 +175,20 @@ export const returnedStatChange = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getAllBooks = async (req, res, next) => {
+  try {
+    const allBooks = await Books.find();
+    const rentedBooks = await Rented.find({returned: false});
+    const rentedBookIds = new Set(rentedBooks.map(book => bookId.toString()));
+    const booksWithAvailability = allBooks.map(book => {
+      return {
+        ...book._doc,
+        available: !rentedBookIds.has(book._id.toString())
+      }
+    })
+    res.status(200).json(booksWithAvailability);
+  } catch (err) {
+    next(err);
+  }
+}

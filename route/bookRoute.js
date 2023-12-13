@@ -10,6 +10,7 @@ import {
   requestedBooksRoute,
   requestRoute,
   returnedStatChange,
+  getAllBooks
 } from "../controller/bookController.js";
 
 router.get("/", booksRoute); // get all books.
@@ -21,5 +22,6 @@ router.get("/request/all", requestedBooksRoute); // get all the requested Books.
 router.get("/rentals/all", getAllRentalsRoute); //Get all the rented (curr) books.
 router.post("/request/one", moveToRentedRoute); //get one particular book => move to rented book => delete it from requested
 router.put("/returned/update", returnedStatChange); // book returned from user and updated!
+router.get("/get-books-with-availabilty", getAllBooks) // Get all books with availability
 
 export default router;
